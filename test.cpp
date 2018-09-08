@@ -1,9 +1,20 @@
 #include <SFML/Graphics.hpp>
+#include "Blob.hpp"
+
+std::vector<Blob> blobs;
+
+unsigned int windowWidth = 1200;
+unsigned int windowHeight = 800;
+const int NUMBER_OF_BLOBS = 250;
 
 int main() {
-  sf::RenderWindow window(sf::VideoMode(200, 200), "SFML works!");
-  sf::CircleShape shape(100.f);
-  shape.setFillColor(sf::Color::Green);
+  sf::RenderWindow window(sf::VideoMode(windowWidth, windowHeight), "BLOBS!");
+  //window.setFramerateLimit(80);
+
+  for(int i = 0; i <= NUMBER_OF_BLOBS; i++) {
+    Blob blob;
+    blobs.push_back(blob);
+  }
 
   while (window.isOpen()) {
     sf::Event event;
@@ -14,7 +25,10 @@ int main() {
     }
 
     window.clear();
-    window.draw(shape);
+    for(auto& blob: blobs) {
+      blob.update(windowWidth, windowHeight);
+      blob.render(window);
+    }
     window.display();
     
   }
